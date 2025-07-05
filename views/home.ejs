@@ -1,14 +1,32 @@
-<div class="d-flex justify-content-between align-items-center mb-3">
-  <h4>Video Terbaru</h4>
-  <div>
-    <select id="filterSelect" class="form-select form-select-sm d-inline" style="width: auto;">
-      <option value="latest">Terbaru</option>
-      <option value="popular">Populer</option>
-    </select>
-    <input type="text" id="searchInput" class="form-control form-control-sm d-inline" placeholder="Cari video..." style="width: 200px;">
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h4 class="text-white">Video Terbaru</h4>
+    <div class="d-flex gap-2">
+      <select id="filterSelect" class="form-select form-select-sm">
+        <option value="latest">Terbaru</option>
+        <option value="popular">Populer</option>
+      </select>
+      <input type="text" id="searchInput" class="form-control form-control-sm" placeholder="Cari video...">
+    </div>
   </div>
-</div>
-<div class="row" id="videoList"></div>
-<div class="text-center mt-3">
-  <button id="loadMoreBtn" class="btn btn-outline-primary">Tampilkan lebih banyak</button>
+
+  <div class="row" id="videoList">
+    <% videos.forEach(function(video) { %>
+      <div class="col-md-3 mb-4 fade-in">
+        <div class="card position-relative glow" data-aos="zoom-in">
+          <div class="duration-badge"><%= video.duration %> min</div>
+          <iframe src="<%= video.iframe_url %>" frameborder="0" allowfullscreen class="w-100" style="height: 160px;"></iframe>
+          <div class="card-body">
+            <h5 class="card-title"><%= video.title %></h5>
+            <p class="card-text"><%= video.views %> views</p>
+            <button class="btn btn-sm btn-gradient mt-2" data-id="<%= video.id %>">👍 <%= video.likes %></button>
+          </div>
+        </div>
+      </div>
+    <% }); %>
+  </div>
+
+  <div class="text-center mt-4">
+    <button id="loadMoreBtn" class="btn btn-outline-primary">Tampilkan lebih banyak</button>
+  </div>
 </div>
