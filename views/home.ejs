@@ -15,11 +15,16 @@
       <div class="col-md-3 mb-4 fade-in">
         <div class="card position-relative glow" data-aos="zoom-in">
           <div class="duration-badge"><%= video.duration %> min</div>
-          <iframe src="<%= video.iframe_url %>" frameborder="0" allowfullscreen class="w-100" style="height: 160px;"></iframe>
+          <div class="ratio ratio-16x9">
+            <iframe src="<%= video.iframe_url %>" allowfullscreen></iframe>
+          </div>
           <div class="card-body">
             <h5 class="card-title"><%= video.title %></h5>
             <p class="card-text"><%= video.views %> views</p>
-            <button class="btn btn-sm btn-gradient mt-2" data-id="<%= video.id %>">👍 <%= video.likes %></button>
+            <div class="d-flex justify-content-between align-items-center">
+              <button class="btn btn-sm btn-gradient like-btn" data-id="<%= video.id %>">👍 <%= video.likes %></button>
+              <button class="btn btn-sm btn-outline-light preview-btn" data-iframe="<%= video.iframe_url %>" data-title="<%= video.title %>">Tonton</button>
+            </div>
           </div>
         </div>
       </div>
@@ -28,5 +33,32 @@
 
   <div class="text-center mt-4">
     <button id="loadMoreBtn" class="btn btn-outline-primary">Tampilkan lebih banyak</button>
+  </div>
+</div>
+
+<!-- Modal Preview Video -->
+<div class="modal fade" id="previewModal" tabindex="-1">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content bg-dark text-white">
+      <div class="modal-header">
+        <h5 class="modal-title" id="previewTitle">Tonton Video</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div class="ratio ratio-16x9">
+          <iframe id="previewIframe" src="" allowfullscreen></iframe>
+        </div>
+        <hr class="border-secondary">
+        <div id="commentSection">
+          <h6>Komentar</h6>
+          <div id="commentsList" class="mb-3"></div>
+          <form id="commentForm">
+            <input type="hidden" name="videoId" id="commentVideoId">
+            <textarea class="form-control mb-2" name="comment" placeholder="Tulis komentar..." required></textarea>
+            <button class="btn btn-sm btn-primary">Kirim</button>
+          </form>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
